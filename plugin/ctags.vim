@@ -2,18 +2,15 @@ if exists('vim_ctags__loaded') | finish | endif | let vim_ctags__loaded = 1
 " ###################################################################################################################################################
 " ##  Plugin options default values  ################################################################################################################
 " ###################################################################################################################################################
-if !exists("g:vim_ctags__relative") | let g:vim_ctags__relative = 'always' | endif
-if !exists("g:vim_ctags__totals")   | let g:vim_ctags__totals   = 'yes'    | endif
+if !exists("g:vim_ctags__relative") | let g:vim_ctags__relative = 'yes' | endif
+if !exists("g:vim_ctags__totals")   | let g:vim_ctags__totals   = 'yes' | endif
 if !exists("g:vim_ctags__jump_behaviors") | let g:vim_ctags__jump_behaviors = { 'before': 'tabnew', 'after': 'norm zvzz' } | endif
-if !exists("g:tagbar_ctags_bin") | let uname = system('uname -s') | let osname = ''
-  if uname  == "Darwin\n" | let osname = 'mac' | elseif uname == "Linux\n"  | let osname = 'linux'     | endif
-  if osname != '' | let g:tagbar_ctags_bin = expand('<sfile>:p:h') .'/../bin/universal-ctags-'. osname | endif
-endif
+if !exists("g:tagbar_ctags_bin") | let g:tagbar_ctags_bin = '/usr/bin/ctags' | endif
 
 " ###################################################################################################################################################
 " ##  Ctags settings  ###############################################################################################################################
 " ###################################################################################################################################################
-set tags=.tags;/ " Search the nearest 'tags' file in the directory tree
+set tags=tags;/ " Search the nearest 'tags' file in the directory tree
 
 " ###################################################################################################################################################
 " ##  Autocommands  #################################################################################################################################
@@ -60,7 +57,7 @@ function ExecCtagsCommand(tagdir, source, args)
   let command  = g:tagbar_ctags_bin .' --exclude=.git --exclude=.svn --languages='. &ft .' '
   let command .= exists("g:vim_ctags__args['". &ft ."']")? g:vim_ctags__args[&ft] : ''
   let command .= ' --tag-relative='. g:vim_ctags__relative .' --totals='. g:vim_ctags__totals
-  return system(command .' -f '. a:tagdir .'/.tags '. a:args .' '. a:source)
+  return system(command .' -f '. a:tagdir .'/tags '. a:args .' '. a:source)
 endfunction
 
 " Update the current file tags index

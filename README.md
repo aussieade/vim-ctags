@@ -1,6 +1,10 @@
 # vim-ctags
 Simple [VIm](http://www.vim.org/) plugin to manage ctags index.
 
+## Fork notes
+* assumes linux with universal-ctags (/usr/bin/ctags)
+* default tags file is now `tags`
+
 ## Usage / Details
 * Before tag jump is available, you have to build the tag index
 * When a file is saved, the tags index is quickly updated automaticaly (if an index exists)
